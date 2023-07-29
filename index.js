@@ -3,24 +3,24 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const app = express();
 
-app.use(cors());
+const signInRouter = require('./controller/signin/signin.router')
+const signUpRouter = require('./controller/signup/signup.router')
+const databaseVariables = require('./model/connection')
 
+app.use(cors());
 app.use(bodyParser.json())
 
-app.get("/", (req, res) => {
-    res.send("Hello World")
-})
-
-app.post('/signin', (req, res) => {
-    console.log(req.body)
-    const { email, password } = req.body
-
-    if (email === 'abc@busyqa.com' && password === 'cool') {
-        res.send("valid user")
+databaseVariables.connect(function (err) {
+    if (err) {
+        throw err
     }
 
-    res.send("invalid user")
-})
+    console.log("Database connected");
+});
+
+app.use('/signin', signInRouter)
+
+app.use('/signup', signUpRouter)
 
 const PORT = 3001;
 app.listen(PORT, () => {

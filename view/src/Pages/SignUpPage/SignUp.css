@@ -1,0 +1,14 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  max-width: 200px;
+  /* text-align: left; */
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.button {
+    margin-top: 15px;
+}
